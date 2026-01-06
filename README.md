@@ -1,66 +1,213 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Dazo Store Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align="center">
 
-## About Laravel
+![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Alpine.js](https://img.shields.io/badge/Alpine.js-3.13-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Modern Multi-Level Store Management System with JWT Authentication & Role-Based Access Control**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+[Features](#-features) • [Installation](#-installation) • [API Documentation](#-api-documentation)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+</div>
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🎯 Overview
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Dazo adalah sistem manajemen toko modern yang mendukung hierarki multi-level (Pusat, Cabang, Retail) dengan authentication JWT dan role-based access control
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Key Highlights
+- ✅ **Backend Complete** - 36 RESTful API endpoints
+- ✅ **JWT Authentication** - Secure token-based auth dengan 1 jam expiry
+- ✅ **Role-Based Access** - 3 levels: Super Admin, Admin, Kasir
+- ✅ **Beautiful UI** - Modern glassmorphism design dengan Tailwind CSS
+- ✅ **Auto-Generated Users** - Setiap toko otomatis membuat admin & kasir
+- ✅ **No Stock Management** - Simplified POS tanpa inventory tracking
+- ✅ **Comprehensive Reports** - Sales analytics dan top products
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ✨ Features
 
-### Premium Partners
+### 🔐 Authentication & Authorization
+- Session-based web authentication
+- JWT tokens untuk API access
+- Password hashing dengan bcrypt
+- Role middleware (Super Admin, Admin, Cashier)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 🏪 Store Management (Super Admin)
+- CRUD operations untuk stores
+- 3-level hierarchy: Pusat → Cabang → Retail  
+- Auto-create admin & cashier saat toko dibuat
+- Store statistics dan analytics
 
-## Contributing
+### 👥 User Management
+- Super Admin: Manage semua users
+- Admin: Manage cashiers di toko sendiri
+- Profile management untuk semua roles
+- Email-based authentication
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 📦 Product Management (Admin)
+- CRUD products per store
+- Search by name, SKU, description
+- Price range filtering
+- No stock tracking (unlimited quantity)
 
-## Code of Conduct
+### 💰 Sales & POS
+- Simple cart-based checkout
+- Multiple payment methods (cash, card, transfer)
+- Transaction history dengan filters
+- Sales reports & analytics
+- Top selling products
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🚀 Installation
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Prerequisites
+- PHP 8.2 or higher
+- Composer 2.7+
+- Node.js 18+ & NPM
+- PostgreSQL 13+
 
-## License
+### Step 1: Install Dependencies
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# Install PHP dependencies
+composer install
+
+# Install JavaScript dependencies
+npm install
+```
+
+### Step 2: Run Migrations & Seeders
+
+```bash
+# Fresh migration dengan sample data
+php artisan migrate:fresh --seed
+```
+
+This creates:
+- 6 stores (1 Pusat, 2 Cabang, 3 Retail)
+- 13 users (1 Super Admin, 12 store users)
+- 90 products (15 per store)
+- 44 sample sales
+
+### Step 3: Build Frontend Assets
+
+```bash
+# Production build
+npm run build
+
+# Development with hot reload
+npm run dev
+```
+
+### Step 4: Start Server
+
+```bash
+php artisan serve
+```
+
+Application runs at: **http://127.0.0.1:8000**
+
+---
+
+## 🔑 Default Credentials
+
+| Role | Email | Password |
+|------|-------|----------|
+| **Super Admin** | admin@dazo.com | password |
+| **Admin** | admin.dazopusatjogja@dazo.com | password |
+| **Kasir** | kasir.dazopusatjogja@dazo.com | password |
+
+---
+
+## 📡 API Documentation
+
+**Base URL:** `http://127.0.0.1:8000/api`
+
+### Authentication
+
+```bash
+# Login
+curl -X POST http://127.0.0.1:8000/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@dazo.com","password":"password"}'
+
+# Use token
+curl -H "Authorization: Bearer {token}" \
+  http://127.0.0.1:8000/api/me
+```
+
+### Endpoints (36 Total)
+
+- **Auth:** `/api/login`, `/api/logout`, `/api/refresh`, `/api/me`
+- **Stores:** Full CRUD (Super Admin only)
+- **Users:** Full CRUD with role-based access
+- **Products:** Full CRUD with search & filters
+- **Sales:** Create transactions, view history, reports
+
+See [walkthrough.md](walkthrough.md) for complete API documentation.
+
+---
+
+## 🗂️ Database Schema
+
+7 tables: `stores`, `users`, `products`, `sales`, `sale_items`, `cache`, `jobs`
+
+- Hierarchical store structure
+- JWT-ready user authentication
+- Auto-calculate sale totals
+- Foreign key constraints
+
+---
+
+## 🎨 Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Backend | Laravel 11 |
+| Database | PostgreSQL |
+| Auth (API) | JWT |
+| Frontend | Blade + Tailwind CSS |
+| JavaScript | Alpine.js |
+| Build | Vite |
+
+---
+
+## 🧪 Testing
+
+### Run All Tests
+
+```bash
+php artisan test
+```
+
+**Test Coverage:**
+- ✅ 30 tests
+- ✅ 99 assertions
+- ✅ Authentication & Authorization
+- ✅ Store Management (CRUD)
+- ✅ Product Management (CRUD)
+- ✅ Sales & POS System
+
+### Test Suites
+
+| Suite | Tests | Coverage |
+|-------|-------|----------|
+| **Authentication** | 7 | Login, logout, tokens, permissions |
+| **Store Management** | 6 | CRUD, auto-user creation, validation |
+| **Product Management** | 7 | CRUD, search, role permissions |
+| **Sales** | 8 | POS checkout, reports, calculations |
+
+**All tests passing!** ✅
+
+<div align="center">
+
+Made with Laravel • Powered by Tailwind CSS • Secured with JWT
+
+</div>

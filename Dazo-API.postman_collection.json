@@ -1,0 +1,931 @@
+{
+    "info": {
+        "_postman_id": "dazo-api-collection",
+        "name": "Dazo Store Management API",
+        "description": "Complete API collection for Dazo Store Management System with JWT authentication.\n\n**Quick Start:**\n1. Import this collection to Postman\n2. Set up environment variables (see Environment section below)\n3. Run \"Login - Super Admin\" to get JWT token (auto-saved)\n4. Test other endpoints\n\n**Environment Variables:**\n- `base_url`: http://127.0.0.1:8000\n- `token`: (auto-saved after login)",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Login - Super Admin",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"token\", jsonData.access_token);",
+                                    "    pm.test(\"Token saved to environment\", function () {",
+                                    "        pm.expect(jsonData.access_token).to.be.a('string');",
+                                    "    });",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"admin@dazo.com\",\n  \"password\": \"password\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "login"
+                            ]
+                        },
+                        "description": "Login as Super Admin and get JWT token"
+                    }
+                },
+                {
+                    "name": "Login - Admin",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"token\", jsonData.access_token);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"admin.dazopusatjogja@dazo.com\",\n  \"password\": \"password\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "login"
+                            ]
+                        },
+                        "description": "Login as Store Admin"
+                    }
+                },
+                {
+                    "name": "Login - Cashier",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"token\", jsonData.access_token);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"kasir.dazopusatjogja@dazo.com\",\n  \"password\": \"password\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "login"
+                            ]
+                        },
+                        "description": "Login as Cashier"
+                    }
+                },
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/me",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "me"
+                            ]
+                        },
+                        "description": "Get authenticated user details with permissions"
+                    }
+                },
+                {
+                    "name": "Refresh Token",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"token\", jsonData.access_token);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/refresh",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "refresh"
+                            ]
+                        },
+                        "description": "Refresh JWT token"
+                    }
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/logout",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "logout"
+                            ]
+                        },
+                        "description": "Logout and invalidate token"
+                    }
+                }
+            ],
+            "description": "Authentication endpoints for JWT token management"
+        },
+        {
+            "name": "Stores (Super Admin)",
+            "item": [
+                {
+                    "name": "List Stores",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/stores?per_page=10&search=&sort_by=created_at&sort_order=desc",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "stores"
+                            ],
+                            "query": [
+                                {
+                                    "key": "per_page",
+                                    "value": "10",
+                                    "description": "Items per page"
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "",
+                                    "description": "Search by name, address, phone"
+                                },
+                                {
+                                    "key": "level",
+                                    "value": "pusat",
+                                    "description": "Filter by level (pusat, cabang, retail)",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "sort_by",
+                                    "value": "created_at"
+                                },
+                                {
+                                    "key": "sort_order",
+                                    "value": "desc"
+                                }
+                            ]
+                        },
+                        "description": "Get all stores with pagination and filters"
+                    }
+                },
+                {
+                    "name": "Create Store",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Dazo Cabang Surabaya\",\n  \"level\": \"cabang\",\n  \"parent_id\": 1,\n  \"address\": \"Jl. Pemuda No. 123, Surabaya\",\n  \"phone\": \"031-1234567\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/stores",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "stores"
+                            ]
+                        },
+                        "description": "Create new store (auto-creates admin & cashier)"
+                    }
+                },
+                {
+                    "name": "Get Store Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/stores/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "stores",
+                                "1"
+                            ]
+                        },
+                        "description": "Get store details with statistics"
+                    }
+                },
+                {
+                    "name": "Update Store",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Dazo Pusat Updated\",\n  \"address\": \"Jl. Merdeka No. 456, Jakarta Pusat\",\n  \"phone\": \"021-9876543\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/stores/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "stores",
+                                "1"
+                            ]
+                        },
+                        "description": "Update store information"
+                    }
+                },
+                {
+                    "name": "Delete Store",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/stores/7",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "stores",
+                                "7"
+                            ]
+                        },
+                        "description": "Delete store (cascades to users, products, sales)"
+                    }
+                }
+            ],
+            "description": "Store management endpoints (Super Admin only)"
+        },
+        {
+            "name": "Users",
+            "item": [
+                {
+                    "name": "List Users",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/users?per_page=10&search=&role=&store_id=",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users"
+                            ],
+                            "query": [
+                                {
+                                    "key": "per_page",
+                                    "value": "10"
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "",
+                                    "description": "Search by name or email"
+                                },
+                                {
+                                    "key": "role",
+                                    "value": "",
+                                    "description": "Filter by role (super_admin, admin, cashier)"
+                                },
+                                {
+                                    "key": "store_id",
+                                    "value": "",
+                                    "description": "Filter by store (Super Admin only)"
+                                }
+                            ]
+                        },
+                        "description": "List users (role-based access)"
+                    }
+                },
+                {
+                    "name": "Create User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"New Cashier\",\n  \"email\": \"newcashier@dazo.com\",\n  \"password\": \"password\",\n  \"role\": \"cashier\",\n  \"store_id\": 1\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/users",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users"
+                            ]
+                        },
+                        "description": "Create new user (Super Admin: any role, Admin: cashier only)"
+                    }
+                },
+                {
+                    "name": "Get User Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/users/3",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "3"
+                            ]
+                        },
+                        "description": "Get user details with statistics"
+                    }
+                },
+                {
+                    "name": "Update User",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Updated Cashier Name\",\n  \"email\": \"updatedcashier@dazo.com\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/users/3",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "3"
+                            ]
+                        },
+                        "description": "Update user information"
+                    }
+                },
+                {
+                    "name": "Update Profile",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"My Updated Name\",\n  \"email\": \"myemail@dazo.com\",\n  \"password\": \"newpassword\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/profile",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "profile"
+                            ]
+                        },
+                        "description": "Update own profile (all users)"
+                    }
+                },
+                {
+                    "name": "Delete User",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/users/14",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "14"
+                            ]
+                        },
+                        "description": "Delete user (cannot delete self)"
+                    }
+                }
+            ],
+            "description": "User management endpoints"
+        },
+        {
+            "name": "Products",
+            "item": [
+                {
+                    "name": "List Products",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/products?per_page=15&search=laptop&min_price=1000000&max_price=20000000&store_id=",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products"
+                            ],
+                            "query": [
+                                {
+                                    "key": "per_page",
+                                    "value": "15"
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "laptop",
+                                    "description": "Search by name, SKU, description"
+                                },
+                                {
+                                    "key": "min_price",
+                                    "value": "1000000",
+                                    "description": "Minimum price filter"
+                                },
+                                {
+                                    "key": "max_price",
+                                    "value": "20000000",
+                                    "description": "Maximum price filter"
+                                },
+                                {
+                                    "key": "store_id",
+                                    "value": "",
+                                    "description": "Filter by store (Super Admin only)"
+                                }
+                            ]
+                        },
+                        "description": "List products with search and filters"
+                    }
+                },
+                {
+                    "name": "Create Product",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"store_id\": 1,\n  \"name\": \"MacBook Pro M3\",\n  \"description\": \"Laptop powerful untuk development\",\n  \"price\": 35000000,\n  \"sku\": \"MBP-M3-001\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products"
+                            ]
+                        },
+                        "description": "Create new product (Admin/Super Admin)"
+                    }
+                },
+                {
+                    "name": "Get Product Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/products/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products",
+                                "1"
+                            ]
+                        },
+                        "description": "Get product details"
+                    }
+                },
+                {
+                    "name": "Update Product",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Laptop Asus ROG Updated\",\n  \"price\": 16000000,\n  \"description\": \"Gaming laptop updated specs\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/products/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products",
+                                "1"
+                            ]
+                        },
+                        "description": "Update product (Admin/Super Admin)"
+                    }
+                },
+                {
+                    "name": "Delete Product",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/products/91",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products",
+                                "91"
+                            ]
+                        },
+                        "description": "Delete product (Admin/Super Admin)"
+                    }
+                }
+            ],
+            "description": "Product management endpoints"
+        },
+        {
+            "name": "Sales & POS",
+            "item": [
+                {
+                    "name": "List Sales",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/sales?per_page=10&start_date=2026-01-01&end_date=2026-01-31&payment_method=&store_id=",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "sales"
+                            ],
+                            "query": [
+                                {
+                                    "key": "per_page",
+                                    "value": "10"
+                                },
+                                {
+                                    "key": "start_date",
+                                    "value": "2026-01-01",
+                                    "description": "Start date filter"
+                                },
+                                {
+                                    "key": "end_date",
+                                    "value": "2026-01-31",
+                                    "description": "End date filter"
+                                },
+                                {
+                                    "key": "payment_method",
+                                    "value": "",
+                                    "description": "Filter by payment (cash, card, transfer)"
+                                },
+                                {
+                                    "key": "store_id",
+                                    "value": "",
+                                    "description": "Filter by store (Super Admin only)"
+                                }
+                            ]
+                        },
+                        "description": "List sales transactions with filters"
+                    }
+                },
+                {
+                    "name": "Create Sale (POS Checkout)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"store_id\": 1,\n  \"payment_method\": \"cash\",\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"product_id\": 5,\n      \"quantity\": 1\n    },\n    {\n      \"product_id\": 10,\n      \"quantity\": 3\n    }\n  ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/sales",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "sales"
+                            ]
+                        },
+                        "description": "Create new sale with cart items (auto-calculates total)"
+                    }
+                },
+                {
+                    "name": "Get Sale Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/sales/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "sales",
+                                "1"
+                            ]
+                        },
+                        "description": "Get sale details with items and products"
+                    }
+                },
+                {
+                    "name": "Sales Report",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/sales/report/statistics?start_date=2026-01-01&end_date=2026-01-31&store_id=",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "sales",
+                                "report",
+                                "statistics"
+                            ],
+                            "query": [
+                                {
+                                    "key": "start_date",
+                                    "value": "2026-01-01",
+                                    "description": "Report start date"
+                                },
+                                {
+                                    "key": "end_date",
+                                    "value": "2026-01-31",
+                                    "description": "Report end date"
+                                },
+                                {
+                                    "key": "store_id",
+                                    "value": "",
+                                    "description": "Filter by store (Super Admin only)"
+                                }
+                            ]
+                        },
+                        "description": "Get sales analytics: summary, by payment method, top products"
+                    }
+                }
+            ],
+            "description": "Sales and Point of Sale endpoints"
+        },
+        {
+            "name": "Test Endpoint",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/test",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "test"
+                    ]
+                },
+                "description": "Test if API is running (no auth required)"
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://127.0.0.1:8000",
+            "type": "string"
+        },
+        {
+            "key": "token",
+            "value": "",
+            "type": "string"
+        }
+    ]
+}
